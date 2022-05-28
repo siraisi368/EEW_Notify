@@ -43,19 +43,19 @@ namespace EEW_Notify
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.KAPI_AcTest = new System.Windows.Forms.Timer(this.components);
             this.PAPI_AcTest = new System.Windows.Forms.Timer(this.components);
             this.Status = new System.Windows.Forms.Timer(this.components);
             this.Clock = new System.Windows.Forms.Timer(this.components);
             this.PAPI_EqAct = new System.Windows.Forms.Timer(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.P2PTsunami = new System.Windows.Forms.Timer(this.components);
-            this.label10 = new System.Windows.Forms.Label();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -194,9 +194,15 @@ namespace EEW_Notify
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 405);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(898, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // groupBox3
             // 
@@ -207,10 +213,60 @@ namespace EEW_Notify
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Location = new System.Drawing.Point(494, 51);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(296, 345);
+            this.groupBox3.Size = new System.Drawing.Size(392, 345);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "最新の地震情報・津波情報";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label10.Location = new System.Drawing.Point(31, 210);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 27);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "取得中";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label9.Location = new System.Drawing.Point(6, 110);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(142, 27);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "深さ:NaNkm";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label8.Location = new System.Drawing.Point(6, 83);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(226, 27);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "マグニチュード:MNaN";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label7.Location = new System.Drawing.Point(6, 56);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(172, 27);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "最大震度:NaN";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label6.Location = new System.Drawing.Point(6, 29);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(367, 27);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "震源:hogehoge県hugehoga地方";
             // 
             // KAPI_AcTest
             // 
@@ -242,73 +298,17 @@ namespace EEW_Notify
             this.PAPI_EqAct.Interval = 2000;
             this.PAPI_EqAct.Tick += new System.EventHandler(this.PAPI_EqAct_Tick);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label6.Location = new System.Drawing.Point(6, 29);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 27);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "震源:Null";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label7.Location = new System.Drawing.Point(6, 56);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(172, 27);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "最大震度:NaN";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label8.Location = new System.Drawing.Point(6, 83);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(226, 27);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "マグニチュード:MNaN";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label9.Location = new System.Drawing.Point(6, 110);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(142, 27);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "深さ:NaNkm";
-            // 
             // P2PTsunami
             // 
             this.P2PTsunami.Enabled = true;
             this.P2PTsunami.Interval = 1000;
             this.P2PTsunami.Tick += new System.EventHandler(this.P2PTsunami_Tick);
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label10.Location = new System.Drawing.Point(31, 210);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(93, 27);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "取得中";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 427);
+            this.ClientSize = new System.Drawing.Size(898, 427);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);

@@ -45,10 +45,26 @@ namespace EEW_Notify
 
             label2.Text = date + " 発生";
             label3.Text = "震源:" + hypocenter;
-            label5.Text = "マグニチュード:M" + mag;
-            label6.Text = "深さ:" + depth + "km";
-            label8.Text = issue_time+" 発表";
 
+            if(mag == "-1")
+            {
+                label5.Text = "マグニチュード:不明";
+            }
+            else
+            {
+                label5.Text = "マグニチュード:M" + mag;
+            }
+
+            if(depth == "-1")
+            {
+                label6.Text = "深さ:不明";
+            }
+            else
+            {
+                label6.Text = "深さ:" + depth + "km";
+            }
+
+            label8.Text = issue_time+" 発表";
             switch(type)
             {
                 case "ScalePrompt":

@@ -189,8 +189,24 @@ namespace EEW_Notify
             string mag = magunitude.ToString();
 
             label6.Text = "震源:"+hypocenter;
-            label8.Text = "マグニチュード:M" + mag;
-            label9.Text = "深さ:" + depth + "km";
+
+            if (mag == "-1")
+            {
+                label8.Text = "マグニチュード:不明";
+            }
+            else
+            {
+                label8.Text = "マグニチュード:M" + mag;
+            }
+
+            if (depth == "-1")
+            {
+                label9.Text = "深さ:不明";
+            }
+            else
+            {
+                label9.Text = "深さ:" + depth + "km";
+            }
 
             switch (maxint)
             {
