@@ -56,17 +56,17 @@
     <Compile Include="EqInfomation_W.Designer.cs">
       <DependentUpon>EqInfomation_W.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="EEW_Window.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="EEW_Window.Designer.cs">
+      <DependentUpon>EEW_Window.cs</DependentUpon>
     </Compile>
     <Compile Include="P2PEqAPI.cs" />
     <Compile Include="P2PTsunami.cs" />
@@ -75,11 +75,11 @@
     <EmbeddedResource Include="EqInfomation_W.resx">
       <DependentUpon>EqInfomation_W.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="EEW_Window.resx">
+      <DependentUpon>EEW_Window.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

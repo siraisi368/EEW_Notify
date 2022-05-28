@@ -37,7 +37,7 @@ namespace EEW_Notify
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "EEW_Window";
-            this.Text = "EEW通知ソフトウェア - 緊急地震速報詳細画面";
+            this.Text = "EewInfomation_W";
             this.ResumeLayout(false);
 
         }
