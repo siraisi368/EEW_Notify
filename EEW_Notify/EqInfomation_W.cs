@@ -19,7 +19,7 @@ namespace EEW_Notify
         {
             InitializeComponent();
         }
-
+        
         private readonly HttpClient client = new HttpClient();
 
         private async void timer1_Tick(object sender, EventArgs e)
@@ -43,82 +43,105 @@ namespace EEW_Notify
             string depth = depth_.ToString();
             string mag = magunitude.ToString();
 
+            string depth_d = null;
+            string mag_d = null;
+
             label2.Text = date + " 発生";
             label3.Text = "震源:" + hypocenter;
 
             if(mag == "-1")
             {
-                label5.Text = "マグニチュード:不明";
+                mag_d = "マグニチュード:不明";
             }
             else
             {
-                label5.Text = "マグニチュード:M" + mag;
+                mag_d = "マグニチュード:M" + mag;
             }
 
             if(depth == "-1")
             {
-                label6.Text = "深さ:不明";
+                depth_d = "深さ:不明";
             }
             else
             {
-                label6.Text = "深さ:" + depth + "km";
+                depth_d = "深さ:" + depth + "km";
             }
 
             label8.Text = issue_time+" 発表";
+
             switch(type)
             {
                 case "ScalePrompt":
                     label7.Text = "情報種別:震度速報";
+                    label3.Text = "震源:調査中";
+                    label6.Text = "深さ:調査中";
+                    label5.Text = "マグニチュード:調査中";
                     break;
                 case "Destination":
                     label7.Text = "情報種別:震源に関する情報";
+                    label3.Text = "震源:" + hypocenter;
                     break;
                 case "ScaleAndDestination":
                     label7.Text = "情報種別:震源・震度に関する情報";
+                    label3.Text = "震源:" + hypocenter;
+                    label5.Text = mag_d;
+                    label6.Text = depth_d;
                     break;
                 case "DetailScale":
                     label7.Text = "情報種別:各地の震度に関する情報";
+                    label3.Text = "震源:" + hypocenter;
+                    label5.Text = mag_d;
+                    label6.Text = depth_d;
                     break;
                 case "Foreign":
                     label7.Text = "情報種別:遠地地震に関する情報";
+                    label3.Text = "震源:" + hypocenter;
+                    label5.Text = mag_d;
+                    label6.Text = depth_d;
                     break;
                 default:
                     label7.Text = "情報種別:その他";
+                    label3.Text = "震源:不明";
+                    label5.Text = "マグニチュード:不明";
+                    label6.Text = "深さ:不明";
                     break;
             }
 
-            switch (maxint)
+            if(type == "ScalePrompt" || type == "ScaleAndDestination" || type == "DetailScale" || type == "Foregn")
             {
-                case -1:
-                    label4.Text = "最大震度:不明";
-                    break;
-                case 10:
-                    label4.Text = "最大震度:１";
-                    break;
-                case 20:
-                    label4.Text = "最大震度:２";
-                    break;
-                case 30:
-                    label4.Text = "最大震度:３";
-                    break;
-                case 40:
-                    label4.Text = "最大震度:４";
-                    break;
-                case 45:
-                    label4.Text = "最大震度:５弱";
-                    break;
-                case 50:
-                    label4.Text = "最大震度:５強";
-                    break;
-                case 55:
-                    label4.Text = "最大震度:６弱";
-                    break;
-                case 60:
-                    label4.Text = "最大震度:６強";
-                    break;
-                case 70:
-                    label4.Text = "最大震度:７";
-                    break;
+                switch (maxint)
+                {
+                    case -1:
+                        label4.Text = "最大震度:不明";
+                        break;
+                    case 10:
+                        label4.Text = "最大震度:１";
+                        break;
+                    case 20:
+                        label4.Text = "最大震度:２";
+                        break;
+                    case 30:
+                        label4.Text = "最大震度:３";
+                        break;
+                    case 40:
+                        label4.Text = "最大震度:４";
+                        break;
+                    case 45:
+                        label4.Text = "最大震度:５弱";
+                        break;
+                    case 50:
+                        label4.Text = "最大震度:５強";
+                        break;
+                    case 55:
+                        label4.Text = "最大震度:６弱";
+                        break;
+                    case 60:
+                        label4.Text = "最大震度:６強";
+                        break;
+                    case 70:
+                        label4.Text = "最大震度:７";
+                        break;
+                }
             }
         }
 
