@@ -147,17 +147,21 @@ namespace EEW_Notify
 
         private async void label8_TextChanged(object sender, EventArgs e)
         {
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = @"p2p_q.exe";
-            proc.Start();
-            textBox1.Text = "取得中...";
-            await Task.Delay(3000);
-            StreamReader sr = new StreamReader(@"file\eqdata.txt", Encoding.GetEncoding("Shift_JIS"));
+            try
+            {
+                var proc = new System.Diagnostics.Process();
+                proc.StartInfo.FileName = @"p2p_q.exe";
+                proc.Start();
+                textBox1.Text = "取得中...";
+                await Task.Delay(3000);
+                StreamReader sr = new StreamReader(@"file\eqdata.txt", Encoding.GetEncoding("Shift_JIS"));
 
-            string text = sr.ReadToEnd();
+                string text = sr.ReadToEnd();
 
-            sr.Close();
-            textBox1.Text = text;
+                sr.Close();
+                textBox1.Text = text;
+            }
+            catch { textBox1.Text = "エラー"; }
         }
     }
 }
