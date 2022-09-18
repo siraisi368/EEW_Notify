@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
+using EEW_Notify.Jishin;
+using EEW_Notify.Tsunami;
 
 namespace EEW_Notify
 {
@@ -87,7 +89,7 @@ namespace EEW_Notify
             await Task.Delay(0);
             try
             {                        
-                string uri = "https://p2pquake.net";
+                string uri = "https://www.p2pquake.net";
                 HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(uri);
                 httpReq.AllowAutoRedirect = false;
 
@@ -204,8 +206,15 @@ namespace EEW_Notify
                 label9.Text = "深さ:不明";
             }
             else
-            {
-                label9.Text = "深さ:" + depth + "km";
+            {   
+                if(depth == "0")
+                {
+                    label9.Text = "深さ:ごく浅い";
+                }
+                else
+                {
+                    label9.Text = "深さ:" + depth + "km";
+                }
             }
 
             switch (maxint)
@@ -246,20 +255,41 @@ namespace EEW_Notify
         private async void P2PTsunami_Tick(object sender, EventArgs e)
         {
             P2PTsunami.Interval = 300000;
-            var url = "https://api.p2pquake.net/v2/jma/tsunami?limit=1";
+            var url = "https://api.p2pquake.net/v2/jma/tsunami";
             var json = await client.GetStringAsync(url);
             var p2pt = JsonConvert.DeserializeObject<List<P2PTsunami>>(json);
 
             bool cancel = p2pt[0].cancelled;
+            string type = p2pt[0].areas[0].grade;
+            string areaname = null;
+            var dict = new Dictionary<string, string>();
+            dict.Add("Watch", "津波予報");
+            dict.Add("Warning", "津波警報");
+            dict.Add("MajorWarning", "大津波警報");
 
+            foreach (var i in p2pt[0].areas)
+            {
+                if(areaname == null)
+                {
+                    areaname = "-"+ i.name + $" [{dict[i.grade]}]";
+                }
+                else
+                {
+                    areaname = areaname + "\r\n-" + i.name + $" [{dict[i.grade]}]";
+                }
+            }
+            areaname = $"発表元:{p2pt[0].issue.source}\r\n発表時刻:{p2pt[0].issue.time}\r\n\r\n" +areaname;
             if (cancel == true)
             {
                 label10.Text = "現在、津波情報は\r\n発表されていません。";
+                textBox1.Text = "発表なし";
             }
             else
             {
-                label10.Text = "！津波情報発表中！";
+                label10.Text = $"！{dict[type]}発表中！";
+                textBox1.Text = areaname;
             }
+
         }
 
         private void button3_Click(object sender, EventArgs e)

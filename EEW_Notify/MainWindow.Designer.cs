@@ -56,6 +56,7 @@ namespace EEW_Notify
             this.Clock = new System.Windows.Forms.Timer(this.components);
             this.PAPI_EqAct = new System.Windows.Forms.Timer(this.components);
             this.P2PTsunami = new System.Windows.Forms.Timer(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -206,6 +207,7 @@ namespace EEW_Notify
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
@@ -222,7 +224,7 @@ namespace EEW_Notify
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label10.Location = new System.Drawing.Point(31, 210);
+            this.label10.Location = new System.Drawing.Point(6, 137);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(93, 27);
             this.label10.TabIndex = 4;
@@ -304,6 +306,16 @@ namespace EEW_Notify
             this.P2PTsunami.Interval = 1000;
             this.P2PTsunami.Tick += new System.EventHandler(this.P2PTsunami_Tick);
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox1.Location = new System.Drawing.Point(6, 166);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(380, 173);
+            this.textBox1.TabIndex = 5;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -357,6 +369,7 @@ namespace EEW_Notify
         private System.Windows.Forms.Timer P2PTsunami;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

@@ -68,8 +68,8 @@
     <Compile Include="EEW_Window.Designer.cs">
       <DependentUpon>EEW_Window.cs</DependentUpon>
     </Compile>
-    <Compile Include="P2PEqAPI.cs" />
-    <Compile Include="P2PTsunami.cs" />
+    <Compile Include="Jishin\P2PEqAPI.cs" />
+    <Compile Include="Tsunami\P2PTsunami.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EqInfomation_W.resx">
