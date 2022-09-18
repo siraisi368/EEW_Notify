@@ -260,6 +260,12 @@ namespace EEW_Notify
             var p2pt = JsonConvert.DeserializeObject<List<P2PTsunami>>(json);
 
             bool cancel = p2pt[0].cancelled;
+            if (cancel == true)
+            {
+                label10.Text = "津波情報なし";
+                textBox1.Text = "発表なし";
+                return;
+            }
             string type = p2pt[0].areas[0].grade;
             string areaname = null;
             var dict = new Dictionary<string, string>();
@@ -279,12 +285,7 @@ namespace EEW_Notify
                 }
             }
             areaname = $"発表元:{p2pt[0].issue.source}\r\n発表時刻:{p2pt[0].issue.time}\r\n\r\n" +areaname;
-            if (cancel == true)
-            {
-                label10.Text = "現在、津波情報は\r\n発表されていません。";
-                textBox1.Text = "発表なし";
-            }
-            else
+            if (cancel != true)
             {
                 label10.Text = $"！{dict[type]}発表中！";
                 textBox1.Text = areaname;
