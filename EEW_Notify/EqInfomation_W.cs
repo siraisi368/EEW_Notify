@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.IO;
 using EEW_Notify.Jishin;
+using NAudio.Wave;
 
 namespace EEW_Notify
 {
@@ -23,9 +24,8 @@ namespace EEW_Notify
         
         private readonly HttpClient client = new HttpClient();
 
-        private async void P2PQact_p(int a, dynamic p2p)
+        private async Task P2PQact_p(int a, dynamic p2p)
         {
-            await Task.Delay(0);
             var hypocenter = p2p[a].earthquake.hypocenter.name;
             int maxint = p2p[a].earthquake.maxScale;
             float magunitude = (float)p2p[a].earthquake.hypocenter.magnitude;
@@ -112,6 +112,9 @@ namespace EEW_Notify
                 case 70:
                     shindo = "最大震度:７";
                     break;
+                default:
+                    shindo = "最大震度:不明";
+                    break;
             }
 
             switch (type)
@@ -141,9 +144,8 @@ namespace EEW_Notify
                     break;
             }
         }
-            private async void P2PQact_now(int a, dynamic p2p)
+            private async Task P2PQact_now(int a, dynamic p2p)
             {
-                await Task.Delay(0);
                 var hypocenter = p2p[a].earthquake.hypocenter.name;
                 int maxint = p2p[a].earthquake.maxScale;
                 float magunitude = (float)p2p[a].earthquake.hypocenter.magnitude;
@@ -164,7 +166,7 @@ namespace EEW_Notify
                 label2.Text = date + " 発生";
                 label3.Text = "震源:" + hypocenter;
 
-                if (mag == "-1")
+                if (mag == "-1.0")
                 {
                     mag_d = "マグニチュード:不明";
                 }
@@ -202,6 +204,8 @@ namespace EEW_Notify
                     case "Destination":
                         label7.Text = "情報種別:震源に関する情報";
                         label3.Text = "震源:" + hypocenter;
+                        label6.Text = depth_d;
+                        label5.Text = mag_d;
                         break;
                     case "ScaleAndDestination":
                         label7.Text = "情報種別:震源・震度に関する情報";
@@ -229,77 +233,70 @@ namespace EEW_Notify
                         break;
                 }
 
-                if (type == "ScalePrompt" || type == "ScaleAndDestination" || type == "DetailScale" || type == "Foreign")
-            {
-                switch (maxint)
+                if (type == "ScalePrompt" || type == "DetailScale" || type == "Foreign")
                 {
-                    case -1:
-                        label4.Text = "最大震度:不明";
-                        break;
-                    case 10:
-                        label4.Text = "最大震度:１";
-                        break;
-                    case 20:
-                        label4.Text = "最大震度:２";
-                        break;
-                    case 30:
-                        label4.Text = "最大震度:３";
-                        break;
-                    case 40:
-                        label4.Text = "最大震度:４";
-                        break;
-                    case 45:
-                        label4.Text = "最大震度:５弱";
-                        break;
-                    case 50:
-                        label4.Text = "最大震度:５強";
-                        break;
-                    case 55:
-                        label4.Text = "最大震度:６弱";
-                        break;
-                    case 60:
-                        label4.Text = "最大震度:６強";
-                        break;
-                    case 70:
-                        label4.Text = "最大震度:７";
-                        break;
+                    switch (maxint)
+                    {
+                        case -1:
+                            label4.Text = "最大震度:不明";
+                            break;
+                        case 10:
+                            label4.Text = "最大震度:１";
+                            break;
+                        case 20:
+                            label4.Text = "最大震度:２";
+                            break;
+                        case 30:
+                            label4.Text = "最大震度:３";
+                            break;
+                        case 40:
+                            label4.Text = "最大震度:４";
+                            break;
+                        case 45:
+                            label4.Text = "最大震度:５弱";
+                            break;
+                        case 50:
+                            label4.Text = "最大震度:５強";
+                            break;
+                        case 55:
+                            label4.Text = "最大震度:６弱";
+                            break;
+                        case 60:
+                            label4.Text = "最大震度:６強";
+                            break;
+                        case 70:
+                            label4.Text = "最大震度:７";
+                            break;
+                    }
                 }
             }
-        }
+
+        private readonly EarthQuakeDetailWrapper eqwrap = new EarthQuakeDetailWrapper();
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Interval = 10000;
-            var url = "https://api.p2pquake.net/v2/history?codes=551&limit=1";
+            //var url = "https://api.p2pquake.net/v2/history?codes=551&limit=1";
+            var url = "https://api.p2pquake.net/v2/jma/quake?limit=1&min_scale=45";
             var json = await client.GetStringAsync(url);
             var p2p = JsonConvert.DeserializeObject<List<P2PEqAPI>>(json);
-            P2PQact_now(0,p2p);
+            await P2PQact_now(0,p2p);
+            textBox1.Text = eqwrap.Eqdata_Wrapper(p2p);
 
             var url2 = "https://api.p2pquake.net/v2/jma/quake?limit=3&offset=1&quake_type=DetailScale";
             var json2 = await client.GetStringAsync(url2);
             var p2p2 = JsonConvert.DeserializeObject<List<P2PEqAPI>>(json2);
-            P2PQact_p(0, p2p2);
-            P2PQact_p(1, p2p2);
-            P2PQact_p(2, p2p2);
+            await P2PQact_p(0, p2p2);
+            await P2PQact_p(1, p2p2);
+            await P2PQact_p(2, p2p2);
         }
 
-        private async void label8_TextChanged(object sender, EventArgs e)
+        private void label8_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                var proc = new System.Diagnostics.Process();
-                proc.StartInfo.FileName = @"p2p_q.exe";
-                proc.Start();
-                textBox1.Text = "取得中...";
-                await Task.Delay(3000);
-                StreamReader sr = new StreamReader(@"file\eqdata.txt", Encoding.GetEncoding("Shift_JIS"));
-
-                string text = sr.ReadToEnd();
-
-                sr.Close();
-                textBox1.Text = text;
-            }
-            catch { textBox1.Text = "エラー"; }
+            WaveOut waveOut = new WaveOut();
+            AudioFileReader reader = new AudioFileReader(@"file/info.wav");
+            waveOut.Init(reader);
+            waveOut.Play();
         }
 
         private void EqInfomation_W_Load(object sender, EventArgs e)

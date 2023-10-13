@@ -180,6 +180,7 @@ namespace EEW_Notify
         private async void PAPI_EqAct_Tick(object sender, EventArgs e)
         {
             var url = "https://api.p2pquake.net/v2/history?codes=551&limit=1";
+            //var url = "https://api.p2pquake.net/v2/jma/quake?limit=1&until_date=20190618";
             var json = await client.GetStringAsync(url);
             var p2p = JsonConvert.DeserializeObject<List<P2PEqAPI>>(json);
 
@@ -256,6 +257,8 @@ namespace EEW_Notify
         {
             P2PTsunami.Interval = 300000;
             var url = "https://api.p2pquake.net/v2/jma/tsunami";
+            //var url = "https://api.p2pquake.net/v2/jma/tsunami?until_date=20220316&offset=3";
+            //↑テスト用
             var json = await client.GetStringAsync(url);
             var p2pt = JsonConvert.DeserializeObject<List<P2PTsunami>>(json);
 
@@ -266,31 +269,50 @@ namespace EEW_Notify
                 textBox1.Text = "発表なし";
                 return;
             }
+
+            string watch = null;
+            string warning = null;
+            string mwarning = null;
+
             string type = p2pt[0].areas[0].grade;
             string areaname = null;
             var dict = new Dictionary<string, string>();
-            dict.Add("Watch", "津波予報");
+            dict.Add("Watch", "津波注意報");
             dict.Add("Warning", "津波警報");
             dict.Add("MajorWarning", "大津波警報");
 
             foreach (var i in p2pt[0].areas)
             {
-                if(areaname == null)
-                {
-                    areaname = "-"+ i.name + $" [{dict[i.grade]}]";
-                }
-                else
-                {
-                    areaname = areaname + "\r\n-" + i.name + $" [{dict[i.grade]}]";
-                }
+                    switch (i.grade)
+                    {
+                        case "Watch":
+                            if(watch == null)
+                                watch = $"[津波注意報]\r\n- {i.name}\r\n";
+                            else
+                                watch = watch + $"- {i.name}\r\n";
+                            break;
+                        case "Warning":
+                            if (warning == null)
+                                warning = $"[津波警報]\r\n- {i.name}\r\n";
+                            else
+                                warning = warning + $"- {i.name}\r\n";
+                            break;
+                        case "MajorWaning":
+                            if (mwarning == null)
+                                mwarning = $"[大津波警報]\r\n- {i.name}\r\n";
+                            else
+                                mwarning = mwarning + $"- {i.name}\r\n";
+                            break;
+                    }
             }
-            areaname = $"発表元:{p2pt[0].issue.source}\r\n発表時刻:{p2pt[0].issue.time}\r\n\r\n" +areaname;
+            areaname = $"発表元:{p2pt[0].issue.source}\r\n発表時刻:{p2pt[0].issue.time}\r\n\r\n" + mwarning + warning + watch;
             if (cancel != true)
             {
                 label10.Text = $"！{dict[type]}発表中！";
                 textBox1.Text = areaname;
+                //textBox1.Text = "//--テスト--//\r\n"+areaname;
             }
-
+            (watch,warning,mwarning) = (null,null,null);
         }
 
         private void button3_Click(object sender, EventArgs e)
