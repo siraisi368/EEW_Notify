@@ -276,8 +276,7 @@ namespace EEW_Notify
         private async void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Interval = 10000;
-            //var url = "https://api.p2pquake.net/v2/history?codes=551&limit=1";
-            var url = "https://api.p2pquake.net/v2/jma/quake?limit=1&min_scale=45";
+            var url = "https://api.p2pquake.net/v2/history?codes=551&limit=1";
             var json = await client.GetStringAsync(url);
             var p2p = JsonConvert.DeserializeObject<List<P2PEqAPI>>(json);
             await P2PQact_now(0,p2p);

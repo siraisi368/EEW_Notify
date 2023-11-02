@@ -53,11 +53,12 @@ namespace EEW_Notify
 
         public string Eqdata_Wrapper(List<P2PEqAPI> data)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-            List<KansokuPoints_listdata> respDataT = new List<KansokuPoints_listdata>();
             string respData = null;
             List<Point> points = data[0].points;
             List<string> Prefs = new List<string>();
+            Dictionary<string,List<KansokuPoints_listdata>> Pref_Points = new Dictionary<string, List<KansokuPoints_listdata>>();
+            Dictionary<string, List<Dictionary<string, List<string>>>> shindodatas = new Dictionary<string, List<Dictionary<string, List<string>>>>();  //Pref, Dict<震度,その地名>
+
             foreach (Point value in points) //存在する都道府県を取り出す
             {
                 if (!Prefs.Contains(value.pref))
@@ -70,7 +71,6 @@ namespace EEW_Notify
                 }
             }
 
-            Dictionary<string,List<KansokuPoints_listdata>> Pref_Points = new Dictionary<string, List<KansokuPoints_listdata>>();
             
             foreach(string value in Prefs)
             {
@@ -86,7 +86,6 @@ namespace EEW_Notify
                 });
             }
             
-            Dictionary<string, List<Dictionary<string, List<string>>>> shindodatas = new Dictionary<string, List<Dictionary<string, List<string>>>>();  //Pref, Dict<震度,その地名>
             
             foreach (KeyValuePair<string, List<KansokuPoints_listdata>> value in Pref_Points) //都道府県ごとに存在する震度を抽出
             {
@@ -128,8 +127,6 @@ namespace EEW_Notify
                 }
             }
 
-            sw.Stop();
-            Console.WriteLine(sw.ElapsedMilliseconds);
             return respData;
         }
     }
